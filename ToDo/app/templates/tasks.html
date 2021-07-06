@@ -1,0 +1,67 @@
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-3">
+    {% if task_id == 0 %} 
+        <form action="{% url 'add' user_id=user.id %}" method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    {% else %}
+        <form action="{% url 'edit' user_id=user.id task_id=task_id %}" method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary">Edit</button>
+        </form>
+    {% endif %}
+     <br>
+    {% if messages %}
+    <div role="alert" class="messages alert alert-danger">
+        {% for message in messages %}
+            <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+<div class="col-1"></div>
+<div class="col">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Priority</th>
+                <th scope="col">Status</th>
+                <th scope="col">Date</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in task_list %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{task.title}}</td>
+                <td>{{task.priority}}</td>
+                <td>{{task.status}}</td>
+                <td>{{task.date}}</td>
+                <td>
+                    <form action="{% url 'edit' user_id=user.id task_id=task.id %}" method="GET">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-warning">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{% url 'delete' user_id=user.id task_id=task.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

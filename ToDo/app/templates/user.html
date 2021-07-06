@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col"></div>
+<div class="col">
+    <form action="{% url 'user' %}" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <br>
+    {% if messages %}
+    <div role="alert" class="messages alert alert-danger">
+        {% for message in messages %}
+            <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+<div class="col"></div>
+{% endblock %}
+
