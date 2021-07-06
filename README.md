@@ -30,9 +30,9 @@ python manage.py loaddata .\app\fixtures\dumpdata.json
 python manage.py runserver
 ```
 
-![Screenshot](ToDo\login.png)
+![Screenshot](login.png)
 
-![Screenshot](ToDo\taks.png)
+![Screenshot](taks.png)
 
 
 # Testing
