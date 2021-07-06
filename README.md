@@ -32,7 +32,7 @@ python manage.py runserver
 
 ![Screenshot](login.png)
 
-![Screenshot](taks.png)
+![Screenshot](tasks.png)
 
 
 # Testing
